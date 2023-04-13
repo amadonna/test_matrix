@@ -1707,7 +1707,7 @@ START_TEST(transp_5) {
 END_TEST
 
 START_TEST(transp_6) {
-  matrix_t A, result;
+  matrix_t A = {0}, result = {0};
   s21_create_matrix(4, -7, &A);
   int check = s21_transpose(&A, &result);
   int check_origin = 1;
@@ -2159,8 +2159,8 @@ START_TEST(inverse_1) {
 END_TEST
 
 START_TEST(inverse_2) {
-  matrix_t result1;
-  matrix_t result3;
+  matrix_t result1 = {0};
+  matrix_t result3 = {0};
   s21_create_matrix(3, 3, &result1);
   result1.matrix[0][0] = 1;
   result1.matrix[0][1] = 2;
@@ -2176,7 +2176,7 @@ START_TEST(inverse_2) {
   int expected_result = 2;
   int actual_result = s21_inverse_matrix(&result1, &result3);
   ck_assert_uint_eq(expected_result, actual_result);
-
+  s21_remove_matrix(&result3);
   s21_remove_matrix(&result1);
 }
 END_TEST

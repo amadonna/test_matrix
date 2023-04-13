@@ -5,18 +5,9 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
   if (rows > 0 && columns > 0) {
     result->columns = columns;
     result->rows = rows;
-    result->matrix = (double **)calloc(sizeof(double), rows);
-    if (result->matrix != NULL) {
-      for (int c = 0; c < rows && ret == 0; c++) {
-        result->matrix[c] = (double *)calloc(sizeof(double), columns);
-        if (result->matrix[c] == NULL) ret = ERROR_NULL;
-      }
-    } else {
-      result->matrix = NULL;
-      result->columns = 0;
-      result->rows = 0;
-      ret = ERROR_NULL;
-    }
+    result->matrix = (double **)calloc(sizeof(double*), rows);
+    for (int c = 0; c < rows && ret == 0; c++)
+      result->matrix[c] = (double *)calloc(sizeof(double), columns);
   } else {
     result->matrix = NULL;
     result->columns = 0;
@@ -28,7 +19,7 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
 }
 
 void s21_remove_matrix(matrix_t *A) {
-  if (A->matrix == NULL) {
+  if (A->matrix != NULL) {
     for (int c = 0; c < A->rows; c++) {
       free(A->matrix[c]);
     }
@@ -69,9 +60,12 @@ int s21_sum_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
           result->matrix[i][j] = A->matrix[i][j] + B->matrix[i][j];
         }
       }
-    } else
+    } else {
+      result->matrix = NULL;
       flag = ERROR_NULL;
-  }
+    }
+  } else
+      result->matrix = NULL;
 
   return flag;
 }
@@ -92,7 +86,8 @@ int s21_sub_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
       }
     } else
       flag = ERROR_NULL;
-  }
+  } else
+      result->matrix = NULL;
 
   return flag;
 }
@@ -110,7 +105,8 @@ int s21_mult_number(matrix_t *A, double number, matrix_t *result) {
       }
     } else
       flag = ERROR_NULL;
-  }
+  } else
+      result->matrix = NULL;
 
   return flag;
 }
@@ -131,15 +127,19 @@ int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
       }
     } else
       flag = ERROR_NULL;
-  } else
-    flag = ERROR_CALC;
+  } else {
+      result->matrix = NULL;
+      flag = ERROR_CALC;
+    }
 
   return flag;
 }
 int s21_transpose(matrix_t *A, matrix_t *result) {
   int flag = 0;
-  if (error_matrix(A) == ERROR_NULL)
+  if (error_matrix(A) == ERROR_NULL) {
     flag = ERROR_NULL;
+    result->matrix = NULL;
+  }
   else {
     s21_create_matrix(A->columns, A->rows, result);
     if (result->matrix != NULL) {
@@ -171,11 +171,13 @@ int s21_calc_complements(matrix_t *A, matrix_t *result) {
         }
       }
     } else {
-      result->matrix = 0;
+      result->matrix = NULL;
       flag = ERROR_NULL;
     }
-  } else
-    flag = ERROR_CALC;
+  } else {
+      result->matrix = NULL;
+      flag = ERROR_CALC;
+    }
   return flag;
 }
 
@@ -200,8 +202,8 @@ int s21_determinant(matrix_t *A, double *result) {
 int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
   int flag = 0;
   double res = 0.0;
-  matrix_t comp;
-  matrix_t tran;
+  matrix_t comp = {0};
+  matrix_t tran = {0};
   flag = s21_determinant(A, &res);
   if (flag == OK) {
     if (res != 0.0) {
@@ -213,9 +215,12 @@ int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
           result->matrix[i][j] = tran.matrix[i][j] / res;
         }
       }
-    } else
+    } else {
+      result->matrix = NULL;
       flag = ERROR_CALC;
-  }
+    }
+  } else
+      result->matrix = NULL;
   s21_remove_matrix(&comp);
   s21_remove_matrix(&tran);
   return flag;
