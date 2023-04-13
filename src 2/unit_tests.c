@@ -20,7 +20,7 @@ START_TEST(create_matrix_1) {
 END_TEST
 
 START_TEST(create_matrix_2) {
-  matrix_t my_matrix {0};
+  matrix_t my_matrix = {0};
   int ret = 0;
   ret = s21_create_matrix(4, 4, &my_matrix);
   ck_assert_int_eq(ret, 0);
