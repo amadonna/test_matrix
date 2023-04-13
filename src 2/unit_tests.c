@@ -20,7 +20,7 @@ START_TEST(create_matrix_1) {
 END_TEST
 
 START_TEST(create_matrix_2) {
-  matrix_t my_matrix;
+  matrix_t my_matrix {0};
   int ret = 0;
   ret = s21_create_matrix(4, 4, &my_matrix);
   ck_assert_int_eq(ret, 0);
@@ -29,7 +29,7 @@ START_TEST(create_matrix_2) {
 END_TEST
 
 START_TEST(create_matrix_3) {
-  matrix_t my_matrix;
+  matrix_t my_matrix = {0};
   int ret = 0;
   ret = s21_create_matrix(-4, 4, &my_matrix);
   ck_assert_int_eq(ret, 1);
@@ -37,7 +37,7 @@ START_TEST(create_matrix_3) {
 END_TEST
 
 START_TEST(create_matrix_4) {
-  matrix_t my_matrix;
+  matrix_t my_matrix = {0};
   int ret = 0;
   ret = s21_create_matrix(-4, 0, &my_matrix);
   ck_assert_int_eq(ret, 1);
@@ -65,8 +65,8 @@ END_TEST
 
 START_TEST(eq_matrix_1) {
   double count = 1.0;
-  matrix_t A;
-  matrix_t B;
+  matrix_t A = {0};
+  matrix_t B = {0};
   s21_create_matrix(3, 3, &A);
   s21_create_matrix(3, 3, &B);
   for (int i = 0; i < A.rows; i++) {
@@ -86,8 +86,8 @@ END_TEST
 START_TEST(eq_matrix_2) {
   double count = 0;
   count = 1.0;
-  matrix_t A;
-  matrix_t B;
+  matrix_t A = {0};
+  matrix_t B = {0};
   s21_create_matrix(3, 1, &A);
   s21_create_matrix(3, 1, &B);
   for (int i = 0; i < A.rows; i++) {
@@ -106,8 +106,8 @@ END_TEST
 
 START_TEST(eq_matrix_3) {
   double count = 1.0;
-  matrix_t A;
-  matrix_t B;
+  matrix_t A = {0};
+  matrix_t B = {0};
   s21_create_matrix(3, 3, &A);
   s21_create_matrix(3, 3, &B);
   for (int i = 0; i < A.rows; i++) {
@@ -129,8 +129,8 @@ END_TEST
 
 START_TEST(eq_matrix_4) {
   double count = 1.0;
-  matrix_t A;
-  matrix_t B;
+  matrix_t A = {0};
+  matrix_t B = {0};
   s21_create_matrix(3, 3, &A);
   s21_create_matrix(3, 3, &B);
   for (int i = 0; i < A.rows; i++) {
@@ -148,8 +148,8 @@ START_TEST(eq_matrix_4) {
 END_TEST
 
 START_TEST(eq_matrix_5) {
-  matrix_t A;
-  matrix_t B;
+  matrix_t A = {0};
+  matrix_t B = {0};
   s21_create_matrix(3, 1, &A);
   s21_create_matrix(3, 3, &B);
   int res = s21_eq_matrix(&A, &B);
@@ -160,8 +160,8 @@ START_TEST(eq_matrix_5) {
 END_TEST
 
 START_TEST(eq_matrix_6) {
-  matrix_t A;
-  matrix_t B;
+  matrix_t A = {0};
+  matrix_t B = {0};
   s21_create_matrix(3, 1, &A);
   s21_create_matrix(-1, 1, &B);
   int res = s21_eq_matrix(&A, &B);
@@ -172,8 +172,8 @@ END_TEST
 
 START_TEST(eq_matrix_7) {
   double count = 1.0;
-  matrix_t A;
-  matrix_t B;
+  matrix_t A = {0};
+  matrix_t B = {0};
   s21_create_matrix(3, 3, &A);
   s21_create_matrix(3, 3, &B);
   for (int i = 0; i < A.rows; i++) {
@@ -221,9 +221,9 @@ START_TEST(sum_matrix_1) {
 END_TEST
 
 START_TEST(sum_matrix_2) {
-  matrix_t A;
-  matrix_t B;
-  matrix_t C;
+  matrix_t A = {0};
+  matrix_t B = {0};
+  matrix_t C = {0};
   s21_create_matrix(3, 1, &A);
   s21_create_matrix(3, 3, &B);
 
