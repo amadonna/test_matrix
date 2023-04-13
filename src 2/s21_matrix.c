@@ -241,7 +241,8 @@ void coml(int row, int columns, matrix_t *A, matrix_t *result) {
         s++;
       }
     }
-  }
+  } else 
+    result->matrix = NULL;
 }
 
 double minor__(matrix_t *A) {
