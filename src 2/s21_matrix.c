@@ -5,9 +5,9 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
   if (rows > 0 && columns > 0) {
     result->columns = columns;
     result->rows = rows;
-    result->matrix = (double **)calloc(sizeof(double*), rows);
+    result->matrix = (double **)calloc(rows, sizeof(double*));
     for (int c = 0; c < rows && ret == 0; c++)
-      result->matrix[c] = (double *)calloc(sizeof(double), columns);
+      result->matrix[c] = (double *)calloc(columns, sizeof(double));
   } else {
     result->matrix = NULL;
     result->columns = 0;

@@ -1603,15 +1603,18 @@ START_TEST(transp_2) {
 END_TEST
 
 START_TEST(transp_3) {
-  matrix_t m1;
-  matrix_t r;
-  matrix_t origin;
+  matrix_t m1 = {0};
+  matrix_t r = {0};
+  matrix_t origin = {0};
   int check_origin = 0;
-  int check_1 = s21_create_matrix(1, 1, &m1);
-  int check_2 = s21_create_matrix(1, 1, &origin);
+  int check_1 = 0;
+  check_1 = s21_create_matrix(1, 1, &m1);
+  int check_2 = 0;
+  check_2 = s21_create_matrix(1, 1, &origin);
   m1.matrix[0][0] = 1.1;
   origin.matrix[0][0] = 1.1;
-  int result = s21_transpose(&m1, &r);
+  int result = 0;
+  result = s21_transpose(&m1, &r);
   ck_assert_int_eq(check_1, check_origin);
   ck_assert_int_eq(check_2, check_origin);
   ck_assert_int_eq(result, check_origin);
@@ -1836,7 +1839,7 @@ START_TEST(calc_complements_4) {
 END_TEST
 
 START_TEST(calc_complements_5) {
-  matrix_t A, B, R;
+  matrix_t A = {0}, B = {0}, R = {0};
   s21_create_matrix(1, 1, &A);
   s21_create_matrix(1, 1, &B);
 
