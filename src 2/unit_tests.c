@@ -425,7 +425,7 @@ START_TEST(sum_matrix_8) {
 END_TEST
 
 START_TEST(sum_matrix_9) {
-  matrix_t result, B, A;
+  matrix_t result = {0}, B = {0}, A = {0};
   s21_create_matrix(1, 2, &A);
   s21_create_matrix(2, 2, &B);
   A.matrix[0][0] = 1;
@@ -434,8 +434,10 @@ START_TEST(sum_matrix_9) {
   B.matrix[0][1] = 3;
   B.matrix[1][0] = 3;
   B.matrix[1][1] = 3;
-  int check = s21_sum_matrix(&A, &B, &result);
-  int check_origin = 2;
+  int check = 0;
+  check = s21_sum_matrix(&A, &B, &result);
+  int check_origin = 0;
+  check_origin = 2;
   ck_assert_int_eq(check, check_origin);
   s21_remove_matrix(&A);
   s21_remove_matrix(&B);
