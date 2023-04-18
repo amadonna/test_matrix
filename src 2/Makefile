@@ -9,7 +9,7 @@ LIBS=-lcheck -lm
 LINUX=-lcheck  -lm -lpthread -lrt -lsubunit
 OS=$(shell uname -s)
 
-all : gcov_report 
+all : s21_matrix.a	
 clean : 
 	rm -rf *.o *.gcno *.gcda *.info test.out s21_matrix.a
 	rm -rf ./report
